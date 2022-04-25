@@ -1,4 +1,4 @@
-#%%
+
 import pandas as pd 
 import os 
 import glob 
@@ -16,7 +16,7 @@ class Data_converter:
         return
 
     def load_data(self):
-        path = "/Users/yamz/Desktop/data/"
+        path = "/Users/yamz/Documents/GitHub/emis/data/"
         self.json_files = os.path.join(path, '*.json')
         self.list_json = glob.glob(self.json_files)
 
