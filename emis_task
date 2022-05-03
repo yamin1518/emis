@@ -1,0 +1,62 @@
+
+import pandas as pd 
+import os 
+import glob 
+import json
+from pathlib import Path
+
+class Data_converter:
+  
+    def run_everything(self):
+        """This function will run all the functions into one function
+
+            Args:
+                 Takes in the self argument
+
+            Returns:
+                It run all the functions that have been created
+        """
+        self.load_data()
+        self.convert_data()
+
+    def load_data(self):
+        """This function will load all the data from the data folder
+
+            Args:
+                 Takes in the self argument
+
+            Returns:
+                this will return all the data from the data folder
+        """
+       
+        path = '/Users/yamz/Documents/GitHub/emis/data/'
+        self.json_files = os.path.join(path, '*.json')
+        self.list_json = glob.glob(self.json_files)
+
+        #print(self.list_json)
+
+       
+
+    def convert_data(self): 
+        """This function will convert the data into a pandas dataframe
+
+            Args:
+                 Takes in the self argument
+
+            Returns:
+                will reteurn the data into a dataframe
+        """
+        
+        dataframe = []
+
+        for file in self.list_json: 
+            with open(file) as f: 
+                data = pd.json_normalize(json.loads(f.read()))
+                data['resourceType'] = file.rsplit("/", 1)[-1]
+                dataframe.append(data)
+        dataframes = pd.concat(dataframe)
+        print(dataframes)
+
+if __name__ == '__main__':
+    convert = Data_converter()
+    convert.run_everything()
